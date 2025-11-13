@@ -1,0 +1,307 @@
+### ========================================
+### EJEMPLOS COMPLETOS DE LA API
+### Base URL: http://localhost:8080/api
+### ========================================
+
+### ========================================
+### PACIENTES
+### ========================================
+
+### 1. Crear Paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Juan Carlos",
+  "apellidoPaterno": "Pérez",
+  "apellidoMaterno": "García",
+  "direccion": "Av. Principal 123, Lima",
+  "telefono": "+51987654321",
+  "imagen": null
+}
+
+### 2. Crear otro Paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "87654321",
+  "nombre": "María Elena",
+  "apellidoPaterno": "López",
+  "apellidoMaterno": "Rodríguez",
+  "direccion": "Jr. Los Olivos 789, Arequipa",
+  "telefono": "+51912345678",
+  "imagen": null
+}
+
+### 3. Listar todos los Pacientes
+GET http://localhost:8080/api/api/pacientes?page=0&size=10
+
+### 4. Obtener Paciente por DNI
+GET http://localhost:8080/api/api/pacientes/dni/12345678
+
+### 5. Actualizar Paciente
+PUT http://localhost:8080/api/api/pacientes/1
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Juan Carlos",
+  "apellidoPaterno": "Pérez",
+  "apellidoMaterno": "García",
+  "direccion": "Av. Principal 456, Lima - ACTUALIZADO",
+  "telefono": "+51987654321",
+  "imagen": null
+}
+
+### ========================================
+### MÉDICOS
+### ========================================
+
+### 6. Crear Médico - Cardiólogo
+POST http://localhost:8080/api/api/medicos
+Content-Type: application/json
+
+{
+  "medCmp": "CMP12345",
+  "nombre": "Roberto",
+  "apellidos": "Sánchez Torres",
+  "especialidad": "Cardiología",
+  "dni": "45678912",
+  "email": "roberto.sanchez@hospital.com",
+  "telefono": "+51998877665",
+  "direccion": "Consultorio 301, Hospital Central",
+  "universidad": "Universidad Nacional Mayor de San Marcos",
+  "aniosExperiencia": 15,
+  "horarioAtencion": "Lun-Vie 9:00-17:00",
+  "consultorio": "301",
+  "activo": true,
+  "observaciones": "Especialista en enfermedades cardiovasculares"
+}
+
+### 7. Crear Médico - Pediatra
+POST http://localhost:8080/api/api/medicos
+Content-Type: application/json
+
+{
+  "medCmp": "CMP67890",
+  "nombre": "Ana María",
+  "apellidos": "Fernández Díaz",
+  "especialidad": "Pediatría",
+  "dni": "78945612",
+  "email": "ana.fernandez@hospital.com",
+  "telefono": "+51987456321",
+  "direccion": "Consultorio 205, Hospital Central",
+  "universidad": "Universidad Peruana Cayetano Heredia",
+  "aniosExperiencia": 10,
+  "horarioAtencion": "Lun-Sab 8:00-14:00",
+  "consultorio": "205",
+  "activo": true,
+  "observaciones": "Especialista en neonatología"
+}
+
+### 8. Listar todos los Médicos
+GET http://localhost:8080/api/api/medicos?page=0&size=10
+
+### 9. Obtener Médico por CMP
+GET http://localhost:8080/api/api/medicos/cmp/CMP12345
+
+### 10. Obtener Médicos por Especialidad
+GET http://localhost:8080/api/api/medicos/especialidad/Cardiología
+
+### 11. Obtener Médicos Activos
+GET http://localhost:8080/api/api/medicos/activos
+
+### 12. Actualizar Médico
+PUT http://localhost:8080/api/api/medicos/1
+Content-Type: application/json
+
+{
+  "medCmp": "CMP12345",
+  "nombre": "Roberto",
+  "apellidos": "Sánchez Torres",
+  "especialidad": "Cardiología",
+  "dni": "45678912",
+  "email": "roberto.sanchez@hospital.com",
+  "telefono": "+51998877665",
+  "direccion": "Consultorio 301, Hospital Central",
+  "universidad": "Universidad Nacional Mayor de San Marcos",
+  "aniosExperiencia": 16,
+  "horarioAtencion": "Lun-Vie 9:00-18:00",
+  "consultorio": "301",
+  "activo": true,
+  "observaciones": "Especialista en enfermedades cardiovasculares - ACTUALIZADO"
+}
+
+### ========================================
+### HISTORIAS CLÍNICAS
+### ========================================
+
+### 13. Crear Historia Clínica - Consulta Cardiológica
+POST http://localhost:8080/api/api/historias-clinicas
+Content-Type: application/json
+
+{
+  "pacienteDni": "12345678",
+  "medicoCmp": "CMP12345",
+  "fechaAtencion": "2024-11-13T10:30:00",
+  "diagnostico": "Hipertensión arterial leve",
+  "analisis": "Paciente presenta presión arterial elevada de manera consistente. Se requiere monitoreo y cambios en estilo de vida.",
+  "tratamiento": "Enalapril 10mg cada 12 horas. Dieta baja en sodio. Ejercicio moderado 30 min diarios.",
+  "motivoConsulta": "Dolor de cabeza frecuente y mareos",
+  "sintomas": "Cefalea, mareos ocasionales, fatiga",
+  "signosVitales": "PA: 145/95, FC: 78, Temp: 36.5°C",
+  "peso": 78.5,
+  "altura": 172.0,
+  "temperatura": 36.5,
+  "presionArterial": "145/95",
+  "frecuenciaCardiaca": 78,
+  "examenesSolicitados": "Electrocardiograma, Perfil lipídico, Hemograma completo",
+  "medicamentosRecetados": "Enalapril 10mg (30 tabletas), Aspirina 100mg (30 tabletas)",
+  "observaciones": "Control en 15 días. Traer resultados de exámenes.",
+  "proximaCita": "2024-11-28",
+  "estado": "ACTIVA",
+  "tipoConsulta": "PRIMERA_VEZ"
+}
+
+### 14. Crear Historia Clínica - Consulta Pediátrica
+POST http://localhost:8080/api/api/historias-clinicas
+Content-Type: application/json
+
+{
+  "pacienteDni": "87654321",
+  "medicoCmp": "CMP67890",
+  "fechaAtencion": "2024-11-13T14:00:00",
+  "diagnostico": "Faringitis aguda",
+  "analisis": "Inflamación de faringe con presencia de exudado. Probable origen viral.",
+  "tratamiento": "Paracetamol 500mg cada 8 horas por 3 días. Abundantes líquidos. Reposo.",
+  "motivoConsulta": "Dolor de garganta y fiebre",
+  "sintomas": "Odinofagia, fiebre de 38.5°C, malestar general",
+  "signosVitales": "PA: 110/70, FC: 92, Temp: 38.5°C",
+  "peso": 65.0,
+  "altura": 165.0,
+  "temperatura": 38.5,
+  "presionArterial": "110/70",
+  "frecuenciaCardiaca": 92,
+  "examenesSolicitados": "Ninguno por el momento",
+  "medicamentosRecetados": "Paracetamol 500mg (9 tabletas), Loratadina 10mg (5 tabletas)",
+  "observaciones": "Si la fiebre persiste más de 3 días, regresar para evaluación.",
+  "proximaCita": "2024-11-20",
+  "estado": "ACTIVA",
+  "tipoConsulta": "CONTROL"
+}
+
+### 15. Listar todas las Historias Clínicas
+GET http://localhost:8080/api/api/historias-clinicas?page=0&size=10
+
+### 16. Obtener Historia Clínica por ID
+GET http://localhost:8080/api/api/historias-clinicas/1
+
+### 17. Obtener Historias de un Paciente
+GET http://localhost:8080/api/api/historias-clinicas/paciente/12345678?page=0&size=10
+
+### 18. Obtener Historias atendidas por un Médico
+GET http://localhost:8080/api/api/historias-clinicas/medico/CMP12345?page=0&size=10
+
+### 19. Obtener Historias por Rango de Fechas
+GET http://localhost:8080/api/api/historias-clinicas/fecha-rango?fechaInicio=2024-11-01T00:00:00&fechaFin=2024-11-30T23:59:59
+
+### 20. Obtener Historias de un Paciente con un Médico específico
+GET http://localhost:8080/api/api/historias-clinicas/paciente/12345678/medico/CMP12345
+
+### 21. Actualizar Historia Clínica
+PUT http://localhost:8080/api/api/historias-clinicas/1
+Content-Type: application/json
+
+{
+  "pacienteDni": "12345678",
+  "medicoCmp": "CMP12345",
+  "fechaAtencion": "2024-11-13T10:30:00",
+  "diagnostico": "Hipertensión arterial leve - EN TRATAMIENTO",
+  "analisis": "Paciente presenta presión arterial elevada. Respondiendo bien al tratamiento inicial.",
+  "tratamiento": "Enalapril 10mg cada 12 horas. Dieta baja en sodio. Ejercicio moderado 30 min diarios.",
+  "motivoConsulta": "Dolor de cabeza frecuente y mareos",
+  "sintomas": "Cefalea, mareos ocasionales, fatiga",
+  "signosVitales": "PA: 145/95, FC: 78, Temp: 36.5°C",
+  "peso": 78.5,
+  "altura": 172.0,
+  "temperatura": 36.5,
+  "presionArterial": "145/95",
+  "frecuenciaCardiaca": 78,
+  "examenesSolicitados": "Electrocardiograma, Perfil lipídico, Hemograma completo",
+  "medicamentosRecetados": "Enalapril 10mg (30 tabletas), Aspirina 100mg (30 tabletas)",
+  "observaciones": "Control en 15 días. Traer resultados de exámenes. ACTUALIZADO",
+  "proximaCita": "2024-11-28",
+  "estado": "EN_SEGUIMIENTO",
+  "tipoConsulta": "PRIMERA_VEZ"
+}
+
+### ========================================
+### CASOS DE ERROR (Para probar validaciones)
+### ========================================
+
+### 22. Error: DNI duplicado de Paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Otro",
+  "apellidoPaterno": "Paciente",
+  "apellidoMaterno": "Duplicado",
+  "direccion": "Calle Falsa 123",
+  "telefono": "+51999888777"
+}
+
+### 23. Error: Datos inválidos de Paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "123",
+  "nombre": "",
+  "apellidoPaterno": "Test",
+  "apellidoMaterno": "Test",
+  "direccion": "",
+  "telefono": "abc"
+}
+
+### 24. Error: CMP duplicado de Médico
+POST http://localhost:8080/api/api/medicos
+Content-Type: application/json
+
+{
+  "medCmp": "CMP12345",
+  "nombre": "Otro",
+  "apellidos": "Médico Duplicado",
+  "especialidad": "Medicina General",
+  "dni": "11111111",
+  "email": "otro@hospital.com"
+}
+
+### 25. Error: Paciente no existe para Historia Clínica
+POST http://localhost:8080/api/api/historias-clinicas
+Content-Type: application/json
+
+{
+  "pacienteDni": "99999999",
+  "medicoCmp": "CMP12345",
+  "fechaAtencion": "2024-11-13T10:30:00",
+  "diagnostico": "Test",
+  "analisis": "Test",
+  "tratamiento": "Test"
+}
+
+### ========================================
+### ELIMINACIONES
+### ========================================
+
+### 26. Eliminar Historia Clínica
+DELETE http://localhost:8080/api/api/historias-clinicas/1
+
+### 27. Eliminar Médico
+DELETE http://localhost:8080/api/api/medicos/1
+
+### 28. Eliminar Paciente
+DELETE http://localhost:8080/api/api/pacientes/1

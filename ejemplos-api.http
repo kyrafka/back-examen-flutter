@@ -1,0 +1,84 @@
+### API de Pacientes - Ejemplos de Peticiones
+### Base URL: http://localhost:8080/api
+
+### 1. Crear un nuevo paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Juan",
+  "apellidoPaterno": "Pérez",
+  "apellidoMaterno": "García",
+  "direccion": "Av. Principal 123, Lima",
+  "telefono": "+51987654321",
+  "imagen": null
+}
+
+### 2. Obtener todos los pacientes (paginado)
+GET http://localhost:8080/api/api/pacientes?page=0&size=10
+
+### 3. Obtener paciente por ID
+GET http://localhost:8080/api/api/pacientes/1
+
+### 4. Obtener paciente por DNI
+GET http://localhost:8080/api/api/pacientes/dni/12345678
+
+### 5. Actualizar un paciente
+PUT http://localhost:8080/api/api/pacientes/1
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Juan Carlos",
+  "apellidoPaterno": "Pérez",
+  "apellidoMaterno": "García",
+  "direccion": "Av. Principal 456, Lima",
+  "telefono": "+51987654321",
+  "imagen": null
+}
+
+### 6. Eliminar un paciente
+DELETE http://localhost:8080/api/api/pacientes/1
+
+### 7. Crear otro paciente
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "87654321",
+  "nombre": "María",
+  "apellidoPaterno": "López",
+  "apellidoMaterno": "Rodríguez",
+  "direccion": "Jr. Los Olivos 789, Arequipa",
+  "telefono": "+51912345678",
+  "imagen": null
+}
+
+### 8. Intentar crear paciente con DNI duplicado (debe fallar)
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "12345678",
+  "nombre": "Pedro",
+  "apellidoPaterno": "Sánchez",
+  "apellidoMaterno": "Torres",
+  "direccion": "Calle Falsa 123",
+  "telefono": "+51999888777",
+  "imagen": null
+}
+
+### 9. Crear paciente con datos inválidos (debe fallar)
+POST http://localhost:8080/api/api/pacientes
+Content-Type: application/json
+
+{
+  "pacDni": "123",
+  "nombre": "",
+  "apellidoPaterno": "Test",
+  "apellidoMaterno": "Test",
+  "direccion": "",
+  "telefono": "abc",
+  "imagen": null
+}
