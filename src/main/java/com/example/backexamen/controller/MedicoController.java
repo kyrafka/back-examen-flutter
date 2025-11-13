@@ -18,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/medicos")
+@RequestMapping("/medicos")
 @RequiredArgsConstructor
 @Tag(name = "Médicos", description = "API para la gestión de médicos")
 public class MedicoController {

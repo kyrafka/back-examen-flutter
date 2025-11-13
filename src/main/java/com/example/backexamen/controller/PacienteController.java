@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/pacientes")
+@RequestMapping("/pacientes")
 @RequiredArgsConstructor
 @Tag(name = "Pacientes", description = "API para la gestión de pacientes")
 public class PacienteController {

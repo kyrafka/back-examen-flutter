@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/historias-clinicas")
+@RequestMapping("/historias-clinicas")
 @RequiredArgsConstructor
 @Tag(name = "Historias Clínicas", description = "API para la gestión de historias clínicas")
 public class HistoriaClinicaController {

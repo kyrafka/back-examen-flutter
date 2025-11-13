@@ -20,7 +20,7 @@ public class HistoriaClinicaDTO extends BaseDTO {
     private String medicoCmp;
     
     @NotNull(message = "La fecha de atención es obligatoria")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSSSSS][.SSS]")
     private LocalDateTime fechaAtencion;
     
     @NotBlank(message = "El diagnóstico es obligatorio")
