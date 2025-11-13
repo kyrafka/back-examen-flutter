@@ -1,14 +1,17 @@
 package com.example.backexamen.config;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.context.annotation.Primary;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -18,24 +21,38 @@ import java.time.temporal.ChronoField;
 public class JacksonConfig {
     
     @Bean
-    public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
+    @Primary
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
         
-        // Formatter que acepta fechas con o sin microsegundos
-        DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
+        // Registrar módulo de Java Time
+        mapper.registerModule(new JavaTimeModule());
+        
+        // Crear módulo personalizado para LocalDateTime
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDateTime.class, new FlexibleLocalDateTimeDeserializer());
+        mapper.registerModule(module);
+        
+        // Deshabilitar timestamps
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        
+        return mapper;
+    }
+    
+    // Deserializador que acepta múltiples formatos de fecha
+    public static class FlexibleLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+        
+        private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
                 .optionalStart()
                 .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true)
                 .optionalEnd()
                 .toFormatter();
         
-        javaTimeModule.addDeserializer(LocalDateTime.class, 
-                new LocalDateTimeDeserializer(dateTimeFormatter));
-        javaTimeModule.addSerializer(LocalDateTime.class, 
-                new LocalDateTimeSerializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        
-        return new Jackson2ObjectMapperBuilder()
-                .modules(javaTimeModule)
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        @Override
+        public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+            String dateString = p.getText();
+            return LocalDateTime.parse(dateString, FORMATTER);
+        }
     }
 }
